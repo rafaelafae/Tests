@@ -1,4 +1,4 @@
-import { sum } from '../../src/example/calculator.js';
+import { sum } from '../../src/Example/calculator.js';
 import { expect } from 'chai';
 
 describe("Sum Function", () => {

@@ -1,4 +1,4 @@
-import { fetchData, fetchDataPromise } from "../../src/example/asyncFunction.js";
+import { fetchData, fetchDataPromise } from "../../src/Example/asyncFunction.js";
 import { expect } from "chai";
 
 describe("fetchData Function with callback", () => {
