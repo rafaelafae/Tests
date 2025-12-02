@@ -9,7 +9,7 @@
   "mocha": {
     "spec": "test/**/*.test.js",
     "ignore": [
-      "test/content/ignore-folder/**/*.test.js"
+      "test/content/ignore-file.test.js"
     ]
   },
   "scripts": {

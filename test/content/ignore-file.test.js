@@ -1,6 +1,6 @@
 // Mocha - framework de teste.
 
-const { expect } = require("chai");
+import { expect } from "chai";
 
 describe("Calculator", () => { // suíte de testes
     it("should add two numbers correctly", () => { }); // caso de teste
