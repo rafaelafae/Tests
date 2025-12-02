@@ -7,14 +7,11 @@
     "test": "test"
   },
   "mocha": {
-    "spec": "test/**/*.test.js",
-    "ignore": [
-      "test/content/ignore-file.test.js"
-    ]
+    "spec": "test/**/*.test.js"
   },
   "scripts": {
-    "test": "mocha",
-    "coverage": "c8 mocha"
+    "test": "mocha --ignore 'test/content/ignore-file.test.js'",
+    "coverage": "c8 mocha --ignore 'test/content/ignore-file.test.js'"
   },
   "keywords": [],
   "author": "",
