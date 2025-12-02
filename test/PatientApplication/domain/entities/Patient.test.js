@@ -40,16 +40,15 @@ describe("Patient Entity", () => {
         });
 
         it("should convert birthDate string to Date object", () => {
-            const clock = sinon.useFakeTimers(new Date("2025-10-01"));
             const patient = new Patient({
                 ...defaultPatientData,
                 birthDate: "2005-10-05",
             });
 
-            expect(patient.birthDate.getFullYear()).to.equal(2005);
-            expect(patient.birthDate.getMonth() + 1).to.equal(10);
-            expect(patient.birthDate.getDate() + 1).to.equal(5);
-            clock.restore();
+            const expectedDate = new Date("2005-10-05");
+
+            expect(patient.birthDate.toISOString()).to.equal(expectedDate.toISOString());
+            expect(patient.birthDate.getTime()).to.equal(expectedDate.getTime());
         });
 
         it("should initialize with a new MedicalRecord instance", () => {
