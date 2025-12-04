@@ -1,25 +1,26 @@
 import { expect } from "chai";
-import { GenericContainer } from "testcontainers"
-import { sum, divide } from "../../src/Example-coverage/mathUtils.js";
+// import { GenericContainer } from "testcontainers"
+import { sum, divide, fetchAndSim } from "../../src/Example-coverage/mathUtils.js";
+import Sinon from "sinon";
 
-let container;
+// let container;
 
-before(async function () {
-    this.timeout(30000); // Increase timeout for container startup
+// before(async function () {
+//     this.timeout(30000); // Increase timeout for container startup
 
-    container = await new GenericContainer("alpine")
-        .withCommand(["sh", "-c", "sleep 60"])
-        .start();
+//     container = await new GenericContainer("alpine")
+//         .withCommand(["sh", "-c", "sleep 60"])
+//         .start();
 
-    console.log(`Container started with ID: ${container.getId()}`);
-})
+//     console.log(`Container started with ID: ${container.getId()}`);
+// })
 
-after(async function () {
-    if (container) {
-        await container.stop();
-        console.log(`Container with ID: ${container.getId()} stopped`);
-    }
-})
+// after(async function () {
+//     if (container) {
+//         await container.stop();
+//         console.log(`Container with ID: ${container.getId()} stopped`);
+//     }
+// })
 
 describe("sum", () => {
     it("should return the sum of two numbers", () => {
@@ -53,4 +54,29 @@ describe("divide", () => {
     it("should throw an error when dividing by zero", () => {
         expect(() => divide(6, 0)).to.throw('Division by zero is not allowed');
     });
+});
+
+describe("fetchAndSim", () => {
+    let apiClientStub;
+
+    beforeEach(() => {
+        apiClientStub = {
+            get: Sinon.stub(),
+        };
+    });
+
+    afterEach(() => {
+        Sinon.restore();
+    });
+
+    it("must sum if the API returns valid: true", async () => {
+        apiClientStub.get.resolves({ valid: true });
+
+        const result = await fetchAndSim(apiClientStub, 4, 5);
+
+        expect(result).to.equal(9);
+
+        expect(apiClientStub.get.calledWith('/validate', { params: { x: 4, y: 5 } })).to.be.true;
+    });
+
 });
