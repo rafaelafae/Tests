@@ -1,5 +1,25 @@
 import { expect } from "chai";
+import { GenericContainer } from "testcontainers"
 import { sum, divide } from "../../src/Example-coverage/mathUtils.js";
+
+let container;
+
+before(async function () {
+    this.timeout(30000); // Increase timeout for container startup
+
+    container = await new GenericContainer("alpine")
+        .withCommand(["sh", "-c", "sleep 60"])
+        .start();
+
+    console.log(`Container started with ID: ${container.getId()}`);
+})
+
+after(async function () {
+    if (container) {
+        await container.stop();
+        console.log(`Container with ID: ${container.getId()} stopped`);
+    }
+})
 
 describe("sum", () => {
     it("should return the sum of two numbers", () => {
