@@ -10,7 +10,8 @@
     "spec": "test/**/*.test.js"
   },
   "scripts": {
-    "test": "mocha --ignore 'test/content/ignore-file.test.js'",
+    "test": "mocha",
+    "test:watch": "mocha --watch",
     "coverage": "c8 mocha --ignore 'test/content/ignore-file.test.js'"
   },
   "keywords": [],
